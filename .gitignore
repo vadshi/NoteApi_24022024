@@ -1,0 +1,12 @@
+.idea/
+__pycache__/
+upload/
+tmp/
+*env/
+*env
+*.db
+*.pyc
+*.log
+*.pot
+.vscode/
+.DS_Store
