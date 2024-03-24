@@ -12,6 +12,7 @@ flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-httpauth = "*"
 passlib = "*"
+httpie = "*"
 
 [dev-packages]
 

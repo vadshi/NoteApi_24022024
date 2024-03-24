@@ -25,17 +25,17 @@ def not_found(e):
 @basic_auth.verify_password
 def verify_password(username, password):
     from api.models.user import UserModel
-    user = UserModel.query.filter_by(username=username).first()
-    if not user or not user.verify_password(password):
+    user_db = UserModel.query.filter_by(username=username).first()
+    if not user_db or not user_db.verify_password(password):
         return False
-    return user
+    return user_db
 
 
 @token_auth.verify_token
 def verify_token(token):
     from api.models.user import UserModel
-    user = UserModel.verify_auth_token(token)
-    return user
+    user_db = UserModel.verify_auth_token(token)
+    return user_db
 
 
 @basic_auth.get_user_roles
@@ -48,6 +48,6 @@ def get_user_roles(user):
     return user.get_roles()
 
 
-from api.handlers import auth
-from api.handlers import note
-from api.handlers import user
+from api.handlers import auth  # noqa: E402, F401
+from api.handlers import note  # noqa: E402, F401
+from api.handlers import user  # noqa: E402, F401
