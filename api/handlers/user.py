@@ -2,6 +2,7 @@ from api import app, request, multi_auth
 from api.models.user import UserModel
 from api.schemas.user import UserRequestSchema, UserSchema, user_schema, users_schema
 from flask_apispec import doc, marshal_with, use_kwargs
+from flask_babel import _
 
 
 @app.route("/users/<int:user_id>")
@@ -67,5 +68,5 @@ def delete_user(user_id):
     """
     user = UserModel.query.get_or_404(user_id)
     user.delete()
-    return {"message": f"User with id={user_id} has deleted."}
+    return {"message": _("User with id=%(user_id)s has deleted.", user_id=user_id)}
 
