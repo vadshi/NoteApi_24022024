@@ -9,6 +9,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False  
     DEBUG = True
     PORT = 5000
-    SECRET_KEY = "My secret key =)"
+    # SECRET_KEY = "My secret key =)"
     LANGUAGES = ['en', 'ru']
 
