@@ -40,4 +40,4 @@ def delete_user(user_id):
     """
     Пользователь может удалять ТОЛЬКО свои заметки
     """
-    raise NotImplemented("Метод не реализован")
+    raise NotImplementedError("Метод не реализован")

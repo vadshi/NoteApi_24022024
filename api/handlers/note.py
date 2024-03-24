@@ -52,4 +52,4 @@ def edit_note(note_id):
 def delete_note(self, note_id):
     # TODO: Пользователь может удалять ТОЛЬКО свои заметки.
     #  Попытка удалить чужую заметку, возвращает ответ с кодом 403
-    raise NotImplemented("Метод не реализован")
+    raise NotImplementedError("Метод не реализован")
