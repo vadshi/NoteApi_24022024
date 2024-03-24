@@ -14,6 +14,7 @@ def get_user_by_id(user_id):
 
 @app.route("/users")
 @doc(description='Api for all users.', tags=['Users'], summary="Get all users")
+@marshal_with(UserSchema(many=True), code=200)
 def get_users():
     """
     Get all Users
@@ -21,8 +22,7 @@ def get_users():
     tags:
         - Users
     """
-    users = UserModel.query.all()
-    return users_schema.dump(users), 200
+    return UserModel.query.all()
 
 
 @app.route("/users", methods=["POST"])
