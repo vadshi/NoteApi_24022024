@@ -6,17 +6,15 @@ name = "pypi"
 [packages]
 flask = "*"
 python-dotenv = "*"
-faker = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-httpauth = "*"
 passlib = "*"
-flask-wtf = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
-python_full_version = "3.11.4"
+python_version = "3.10"
+python_full_version = "3.10.12"
