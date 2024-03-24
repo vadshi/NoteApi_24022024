@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
+from flasgger import Swagger
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,6 +16,7 @@ ma = Marshmallow(app)
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth('Bearer')
 multi_auth = MultiAuth(basic_auth, token_auth)
+swagger = Swagger(app)
 
 
 @app.errorhandler(404)
