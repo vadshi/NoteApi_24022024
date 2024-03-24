@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1efd47ea2fa900be87a03feac7dc03a73b87a60561606d432ab965a7a8ccc7dd"
+            "sha256": "fb1020643d9bc36142102795a99e8f5b68ecc938e070ef4b2483ce0f239e6250"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -24,6 +24,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==1.13.1"
+        },
+        "apispec": {
+            "hashes": [
+                "sha256:b5b22f5dba6cc69bd90e1075de20ae3d27b310a6250c66b0271aa50615eee72d",
+                "sha256:c0846f8eaa5119c46b2ecfe9bc24ed19dba8845f8655d00b51ddd296a10ea4cb"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==6.6.0"
         },
         "attrs": {
             "hashes": [
@@ -176,6 +184,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==3.0.2"
+        },
+        "flask-apispec": {
+            "hashes": [
+                "sha256:9a6fedd3a06510a8a19340df676393b336b4ba9d5c159cbb304b62672e3115da",
+                "sha256:dba490a42ffe5e45040a667a5551678099c677eb65b6d5e420cf59ce1dcb6adb"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.6'",
+            "version": "==0.11.4"
         },
         "flask-httpauth": {
             "hashes": [
@@ -868,6 +885,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.2.1"
+        },
+        "webargs": {
+            "hashes": [
+                "sha256:22324305fbca6a2c4cce1235280e8b56372fb3211a8dac2ac8ed1948315a6f53",
+                "sha256:ea99368214a4ce613924be99d71db58c269631e95eff4fa09b7354e52dc006a5"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==8.4.0"
         },
         "werkzeug": {
             "hashes": [

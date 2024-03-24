@@ -4,11 +4,25 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
-from flasgger import Swagger
+# from flasgger import Swagger
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
+from flask_apispec import FlaskApiSpec
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config.update({
+   'APISPEC_SPEC': APISpec(
+       title='Notes Project',
+       version='1.0',
+       plugins=[MarshmallowPlugin()],
+       openapi_version='2.0'
+   ),
+   'APISPEC_SWAGGER_URL': '/swagger', # URI API Doc JSON
+   'APISPEC_SWAGGER_UI_URL': '/swagger-ui'# URI UI of API Doc
+})
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -16,7 +30,8 @@ ma = Marshmallow(app)
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth('Bearer')
 multi_auth = MultiAuth(basic_auth, token_auth)
-swagger = Swagger(app)
+# swagger = Swagger(app)
+docs = FlaskApiSpec(app)
 
 
 @app.errorhandler(404)

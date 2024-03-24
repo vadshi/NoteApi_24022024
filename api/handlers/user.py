@@ -1,42 +1,19 @@
 from api import app, request, multi_auth
 from api.models.user import UserModel
-from api.schemas.user import user_schema, users_schema
+from api.schemas.user import UserRequestSchema, UserSchema, user_schema, users_schema
+from flask_apispec import doc, marshal_with, use_kwargs
 
 
 @app.route("/users/<int:user_id>")
+@doc(description='Api for only user.', tags=['Users'], summary="Get user by id")
+@marshal_with(UserSchema, code=200)
 def get_user_by_id(user_id):
-    """
-    Get User by id
-    ---
-    tags:
-        - Users
-    parameters:
-         - in: path
-           name: user_id
-           type: integer
-           required: true
-           default: 1
-
-    responses:
-        200:
-            description: A single user item
-            schema:
-                id: User
-                properties:
-                    id:
-                        type: integer
-                    username:
-                        type: string
-                    role:
-                        type: string
-        404:
-            description: User not found
-    """
     user = UserModel.query.get_or_404(user_id, f"User with id={user_id} not found")
-    return user_schema.dump(user), 200
+    return user, 200
 
 
 @app.route("/users")
+@doc(description='Api for all users.', tags=['Users'], summary="Get all users")
 def get_users():
     """
     Get all Users
@@ -49,9 +26,11 @@ def get_users():
 
 
 @app.route("/users", methods=["POST"])
-def create_user():
-    user_data = request.json
-    user = UserModel(**user_data)
+@doc(description='Api for create user.', tags=['Users'], summary="Create user")
+@use_kwargs(UserRequestSchema, location='json')
+def create_user(**kwargs):
+    # user_data = request.json
+    user = UserModel(**kwargs)
     # DONE: добавить обработчик на создание пользователя с неуникальным username
     if UserModel.query.filter_by(username=user.username).one_or_none():
         return {"error": "User already exists."}, 409
@@ -60,6 +39,7 @@ def create_user():
 
 
 @app.route("/users/<int:user_id>", methods=["PUT"])
+@doc(description='Api for users.', tags=['Users'])
 @multi_auth.login_required(role="admin")
 def edit_user(user_id):
     user_data = request.json
@@ -70,6 +50,7 @@ def edit_user(user_id):
 
 
 @app.route("/users/<int:user_id>", methods=["DELETE"])
+@doc(description='Api for delete user.', tags=['Users'], summary="Delete user by id")
 @multi_auth.login_required(role="admin")
 def delete_user(user_id):
     """
