@@ -28,6 +28,7 @@ def get_users():
 @app.route("/users", methods=["POST"])
 @doc(description='Api for create user.', tags=['Users'], summary="Create user")
 @use_kwargs(UserRequestSchema, location='json')
+@marshal_with(UserSchema, code=201)
 def create_user(**kwargs):
     # user_data = request.json
     user = UserModel(**kwargs)
@@ -35,22 +36,28 @@ def create_user(**kwargs):
     if UserModel.query.filter_by(username=user.username).one_or_none():
         return {"error": "User already exists."}, 409
     user.save()
-    return user_schema.dump(user), 201
+    return user, 201
 
 
 @app.route("/users/<int:user_id>", methods=["PUT"])
-@doc(description='Api for users.', tags=['Users'])
+@doc(description='Api for edit user.', tags=['Users'], summary="Edit user")
+@doc(responses={"403": {"description": "Unauthorized"}})
+@doc(responses={"404": {"description": "Not found"}})
+@doc(security= [{"basicAuth": []}])
+@use_kwargs(UserRequestSchema, location='json')
+@marshal_with(UserSchema, code=200)
 @multi_auth.login_required(role="admin")
-def edit_user(user_id):
-    user_data = request.json
+def edit_user(user_id, **kwargs):
     user = UserModel.query.get_or_404(user_id, f"User with id={user_id} not found")
-    user.username = user_data["username"]
+    for key, value in kwargs.items():
+        setattr(user, key, value)
     user.save()
-    return user_schema.dump(user), 200
+    return user, 200
 
 
 @app.route("/users/<int:user_id>", methods=["DELETE"])
 @doc(description='Api for delete user.', tags=['Users'], summary="Delete user by id")
+@doc(responses={"404": {"description": "Not found"}})
 @multi_auth.login_required(role="admin")
 def delete_user(user_id):
     """
